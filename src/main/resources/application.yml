@@ -7,9 +7,13 @@ spring:
     cloud:
       gateway:
         routes:
-          - id: demo-service
+          - id: first-service
             predicates:
               - Path=/member-service/**
+            uri: lb://member-service
+          - id: second-service
+            predicates:
+              - Path=/order-service/**
             uri: lb://MEMBER-SERVICE
 
 # Eureka
