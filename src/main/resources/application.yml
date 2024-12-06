@@ -7,14 +7,18 @@ spring:
     cloud:
       gateway:
         routes:
-          - id: first-service
+          - id: member-service
             predicates:
               - Path=/member-service/**
             uri: lb://member-service
-          - id: second-service
+            filters:
+              - RewritePath=/member-service/(?<pathVar>.*), /$\{pathVar} # /member-service/get -> /get 으로 바뀌는 filter
+          - id: order-service
             predicates:
               - Path=/order-service/**
-            uri: lb://MEMBER-SERVICE
+            uri: lb://order-service
+            filters:
+              - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar} # /order-service/get -> /get 으로 바뀌는 filter
 
 # Eureka
 eureka:
@@ -22,6 +26,6 @@ eureka:
     hostname: localhost
   client:
     serviceUrl:
-      defaultZone: http://localhost:8088/eureka
+      defaultZone: ${EUREKA_URL:http://localhost:8088/eureka/}
     register-with-eureka: true
     fetch-registry: true
