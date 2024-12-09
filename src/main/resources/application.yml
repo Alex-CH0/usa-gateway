@@ -4,21 +4,23 @@ server:
 spring:
   application:
     name: api-gateway
-    cloud:
-      gateway:
-        routes:
-          - id: member-service
-            predicates:
-              - Path=/member-service/**
-            uri: lb://member-service
-            filters:
-              - RewritePath=/member-service/(?<pathVar>.*), /$\{pathVar} # /member-service/get -> /get 으로 바뀌는 filter
-          - id: order-service
-            predicates:
-              - Path=/order-service/**
-            uri: lb://order-service
-            filters:
-              - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar} # /order-service/get -> /get 으로 바뀌는 filter
+  cloud:
+    gateway:
+      routes:
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/**
+          filters:
+            - RewritePath=/member-service/(?<pathVar>.*), /$\{pathVar} # /member-service/get -> /get 으로 바뀌는 filter
+            - CustomFilter
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+          filters:
+           - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar} # /order-service/get -> /get 으로 바뀌는 filter
+           - CustomFilter
 
 # Eureka
 eureka:
@@ -26,6 +28,6 @@ eureka:
     hostname: 127.0.0.1
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URL:http://127.0.0.1:8088/eureka/}
+      defaultZone: http://127.0.0.1:8088/eureka/
     register-with-eureka: true
     fetch-registry: true
