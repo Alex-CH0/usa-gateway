@@ -11,7 +11,7 @@ public class FilterConfig {
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/member-service/**")
-                        .uri("lb://MEMBER-SERVICE"))
+                        .uri("lb://USER-SERVICE"))
                 .route(r -> r.path("/order-service/**")
                         .uri("lb://ORDER-SERVICE"))
                 .build();

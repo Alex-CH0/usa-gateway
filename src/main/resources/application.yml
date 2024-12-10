@@ -7,12 +7,12 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: member-service
-          uri: lb://MEMBER-SERVICE
+        - id: user-service
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/member-service/**
+            - Path=/user-service/**
           filters:
-            - RewritePath=/member-service/(?<pathVar>.*), /$\{pathVar} # /member-service/get -> /get 으로 바뀌는 filter
+            - RewritePath=/user-service/(?<pathVar>.*), /$\{pathVar} # /member-service/get -> /get 으로 바뀌는 filter
             - CustomFilter
         - id: order-service
           uri: lb://ORDER-SERVICE
