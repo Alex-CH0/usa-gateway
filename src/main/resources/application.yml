@@ -12,14 +12,14 @@ spring:
           predicates:
             - Path=/user-service/**
           filters:
-            - RewritePath=/user-service/(?<pathVar>.*), /$\{pathVar} # /member-service/get -> /get 으로 바뀌는 filter
+            - RewritePath=/user-service/(?<pathVar>.*), /$\{pathVar}
             - CustomFilter
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order-service/**
           filters:
-           - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar} # /order-service/get -> /get 으로 바뀌는 filter
+           - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar}
            - CustomFilter
 
 # Eureka
