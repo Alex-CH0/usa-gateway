@@ -1,4 +1,4 @@
-package com.usa.eureka;
+package com.usa.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
