@@ -19,8 +19,15 @@ spring:
           predicates:
             - Path=/order-service/**
           filters:
-           - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar}
-           - CustomFilter
+            - RewritePath=/order-service/(?<pathVar>.*), /$\{pathVar}
+            - CustomFilter
+        - id: finance-service
+          uri: lb://FINANCE-SERVICE
+          predicates:
+            - Path=/finance-service/**
+          filters:
+            - RewritePath=/finance-service/(?<pathVar>.*), /$\{pathVar}
+            - CustomFilter
 
 # Eureka
 eureka:
